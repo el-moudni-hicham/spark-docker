@@ -47,6 +47,22 @@ services:
       - "4140:4040"  
     networks:
       - spark-network
+  spark-worker-3:
+    image: bitnami/spark:latest
+    container_name: spark-worker-3
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=2g 
+      - SPARK_WORKER_WEBUI_PORT=4040
+    depends_on:
+      - spark-master
+    volumes:
+      - ./volumes/spark-worker-3:/bitnami
+    ports:
+      - "4240:4040"  
+    networks:
+      - spark-network
 networks:
   spark-network:
     driver: bridge

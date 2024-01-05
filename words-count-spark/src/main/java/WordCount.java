@@ -10,7 +10,7 @@ public class WordCount {
     public static void main(String[] args) {
         SparkConf conf=new SparkConf().setAppName("Word Count").setMaster("spark://spark-master:7077");
         JavaSparkContext sc=new JavaSparkContext(conf);
-        JavaRDD<String> rddLines=sc.textFile("src/main/resources/words.txt");
+        JavaRDD<String> rddLines=sc.textFile("/bitnami/words.txt");
 
         JavaRDD<String> rddWords=rddLines.flatMap(line-> Arrays.asList(line.split(" ")).iterator());
         JavaPairRDD<String,Integer> pairRDDWords=rddWords.mapToPair(word->new Tuple2<>(word,1));
